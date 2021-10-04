@@ -1,32 +1,31 @@
-console.log('sex')
 let svg = d3.select("svg");
-let compteur=0;
+let compteur = 0;
 function entierAlea(n) {
-    return Math.floor(Math.random()*n);
+    return Math.floor(Math.random() * n);
 }
 svg.style("background-color", "cyan");
 
-let coordonnees=[];
+let coordonnees = [];
 
 function update_DOM() {
-    
-    let update=
-    svg
-        .selectAll("circle.actif")
-        .data(coordonnees,d=>d.id);
+
+    let update =
+        svg
+            .selectAll("circle.actif")
+            .data(coordonnees, d => d.id);
     update.exit()        //transition de sortie
-        .attr("class","inactif") 
+        .attr("class", "inactif")
         .transition()
         .duration(2500)
-        .style("fill","white")
-        .attr("r",0)
-        .remove();
-        
-    update.enter()
-        .append("circle")    
-        .attr("class","actif")
+        .style("fill", "white")
         .attr("r", 0)
-        .style("fill","black")
+        .remove();
+
+    update.enter()
+        .append("circle")
+        .attr("class", "actif")
+        .attr("r", 0)
+        .style("fill", "black")
         .transition()
         .duration(500)
         .attr("r", 2)
@@ -35,12 +34,12 @@ function update_DOM() {
 function update_coords() {
     svg
         .selectAll("circle")
-        .attr("cx", d=>d.x)
-        .attr("cy", d=>d.y) ;     
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
 }
 // test pour savoir si une goute a terminÃ© sa chute
 function chute_en_cours(d) {
-    return d.y<90;
+    return d.x < 90;
 }
 
 
@@ -49,27 +48,66 @@ update_DOM();
 
 
 
-//toutes les 50ms: les goutes tombent un peu
-setInterval(function(){
-    if (coordonnees.length==0) return;
-    coordonnees.forEach(function(d) {
-        d.vitesse+=2; //la vitesse augmente (accÃ©lÃ©ration pendant la chute)
-        d.y+=d.vitesse/20;  //y augmente en fonction de la vitesse 
+//toutes les 20ms: les goutes tombent un peu
+setInterval(function () {
+    if (coordonnees.length == 0) return;
+    coordonnees.forEach(function (d) {
+        d.vitesse += 0; //la vitesse augmente (accÃ©lÃ©ration pendant la chute)
+        d.x += d.vitesse / 100;  //y augmente en fonction de la vitesse 
     });
-    
+
     if (coordonnees.every(chute_en_cours))
         update_coords();
     else {
-        coordonnees=coordonnees.filter(chute_en_cours);
+        coordonnees = coordonnees.filter(chute_en_cours);
         update_DOM();
     }
 
-}, 50);
+}, 20);
 
 
-//toutes les 100ms: une nouvelle goutte est ajoutÃ©e en haut
-setInterval(function(){
+//toutes les 2sec: une nouvelle goutte est ajoutÃ©e à gauche
+setInterval(function () {
     compteur++;
-    coordonnees.push({x:entierAlea(100),y:0, vitesse:entierAlea(40)+20, id:compteur});
+    coordonnees.push({ y: entierAlea(95), x: 0, vitesse: entierAlea(10) + 20, id: compteur });
     update_DOM();
-}, 100);
+}, 1500);
+
+//Souris
+let mainlayer = svg.append("g")
+
+//puis un fantome, qui sera toujours au premier plan (initialement invisible)
+svg.append("use")
+    .attr("id", "fantome")
+    .attr("href", "#spirale")
+    .style("display", "none")
+    .style("z-index", 2)
+    .style("opacity", ".5");
+
+// mouvements de la souris: entrÃ©e, dÃ©placement, sortie. On gÃ¨re la visibilitÃ© et la position du fantome
+// fonction annexe pour gÃ©rer la position
+function positionFantome(e) {
+    let pointer = d3.pointer(e);
+    d3.select("#fantome")
+        .attr("x", pointer[0])
+        .attr("y", pointer[1])
+}
+//entrÃ©e
+svg.on("mouseenter", function (e) {
+    positionFantome(e);
+    d3.select("#fantome")
+        .style("display", null)
+})
+//dÃ©placement
+svg.on("mousemove", function (e) {
+    positionFantome(e);
+})
+//sortie
+rect.on("mouseleave", function (e) {
+    d3.select("#fantome")
+        .style("display", "none")
+})
+
+// rect.on("mousemove", function(e) {
+//     positionFantome(e)
+// } )
