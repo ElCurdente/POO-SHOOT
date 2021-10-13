@@ -56,7 +56,7 @@ setInterval(function () {
     if (coordonnees.length == 0) return;
     coordonnees.forEach(function (d) {
         d.vitesse += 0; //la vitesse augmente (accÃ©lÃ©ration pendant la chute)
-        d.x += d.vitesse / 100;  //y augmente en fonction de la vitesse 
+        d.x += d.vitesse / 50;  //y augmente en fonction de la vitesse 
     });
 
     if (coordonnees.every(chute_en_cours))
@@ -73,9 +73,10 @@ setInterval(function () {
     else if (compteurvies == 1) {
  d3.select(".vie2").remove()
     }
-     else if (compteurvies == 0) {
+    else if (compteurvies == 0) {
+        compteurvies = -1;
         d3.select(".vie1").remove();
-        setTimeout(()=>{alert("recommence sale shlag");window.location.reload()},0);
+        setTimeout(()=>{alert("recommence");window.location.reload()},0);
     }
 }, 20);
 
