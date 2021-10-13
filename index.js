@@ -64,9 +64,19 @@ setInterval(function () {
     else {
         coordonnees = coordonnees.filter(chute_en_cours);
         update_DOM();
-        compteurvies--;
+        compteurvies--;  
     }
 
+    if (compteurvies == 2) {
+        d3.select(".vie3").remove();
+    }
+    else if (compteurvies == 1) {
+ d3.select(".vie2").remove()
+    }
+     else if (compteurvies == 0) {
+        d3.select(".vie1").remove();
+        setTimeout(()=>{alert("recommence sale shlag");window.location.reload()},0);
+    }
 }, 20);
 
 
@@ -77,9 +87,7 @@ setInterval(function () {
     update_DOM();
 }, 1500);
 
-if (compteurvies == 2) {
-    d3.select("vie3").remove;
-}
+
 
 //Souris
 let mainlayer = svg.append("g")
