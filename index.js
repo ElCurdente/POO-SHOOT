@@ -1,11 +1,13 @@
 let svg = d3.select("svg");
 let compteur = 0;
+let compteurvies = 3;
 function entierAlea(n) {
     return Math.floor(Math.random() * n);
 }
 svg.style("background-color", "cyan");
 
 let coordonnees = [];
+let coordonneesperso = [];
 
 function update_DOM() {
 
@@ -13,6 +15,7 @@ function update_DOM() {
         svg
             .selectAll("circle.actif")
             .data(coordonnees, d => d.id);
+
     update.exit()        //transition de sortie
         .attr("class", "inactif")
         .transition()
@@ -61,6 +64,7 @@ setInterval(function () {
     else {
         coordonnees = coordonnees.filter(chute_en_cours);
         update_DOM();
+        compteurvies--;
     }
 
 }, 20);
@@ -69,9 +73,13 @@ setInterval(function () {
 //toutes les 2sec: une nouvelle goutte est ajoutÃ©e à gauche
 setInterval(function () {
     compteur++;
-    coordonnees.push({ y: entierAlea(95), x: 0, vitesse: entierAlea(10) + 20, id: compteur });
+    coordonnees.push({ y: entierAlea(100), x: -15, vitesse: entierAlea(10) + 20, id: compteur });
     update_DOM();
 }, 1500);
+
+if (compteurvies == 2) {
+    d3.select("vie3").remove;
+}
 
 //Souris
 let mainlayer = svg.append("g")
@@ -89,7 +97,7 @@ svg.append("use")
 function positionFantome(e) {
     let pointer = d3.pointer(e);
     d3.select("#fantome")
-        .attr("x", pointer[0])
+        .attr("x", "105")
         .attr("y", pointer[1])
 }
 //entrÃ©e
@@ -103,11 +111,7 @@ svg.on("mousemove", function (e) {
     positionFantome(e);
 })
 //sortie
-rect.on("mouseleave", function (e) {
+svg.on("mouseleave", function (e) {
     d3.select("#fantome")
         .style("display", "none")
 })
-
-// rect.on("mousemove", function(e) {
-//     positionFantome(e)
-// } )
