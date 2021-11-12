@@ -1,11 +1,18 @@
 let svg = d3.select("svg");
 let compteur = 0;
 let compteurvies = 3;
+var bg_decallage = 0;
 function entierAlea(n) {
     return Math.floor(Math.random() * n);
 }
 svg.style("background-image", "url('Images/citybg.png')");
 svg.style("background-size", "cover");
+svg.style("z-index", "-10");
+
+setInterval(function () {
+    svg.style("background-position", bg_decallage + "px 0px");
+    bg_decallage = bg_decallage + 1;
+}, 15);
 // svg.animate([
 //     //keyframes
 //     { transform: 'translateX(0px)' },
@@ -35,7 +42,7 @@ function update_DOM() {
         .remove();
 
     update.enter()
-        .append("rect")
+        .append("circle")
         .attr("class", "actif")
         .attr("r", 0)
         .style("fill", "black")
