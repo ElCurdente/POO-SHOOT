@@ -25,7 +25,7 @@ function update_DOM() {
         .remove();
 
     update.enter()
-        .append("circle")
+        .append("rect")
         .attr("class", "actif")
         .attr("r", 0)
         .style("fill", "black")
@@ -99,7 +99,6 @@ svg.append("use")
     .attr("href", "#spirale")
     .style("display", "none")
     .style("z-index", 2)
-    .style("opacity", ".5");
 
 // mouvements de la souris: entrÃ©e, dÃ©placement, sortie. On gÃ¨re la visibilitÃ© et la position du fantome
 // fonction annexe pour gÃ©rer la position
