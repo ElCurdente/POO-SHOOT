@@ -4,7 +4,17 @@ let compteurvies = 3;
 function entierAlea(n) {
     return Math.floor(Math.random() * n);
 }
-svg.style("background-color", "cyan");
+svg.style("background-image", "url('Images/citybg.png')");
+svg.style("background-size", "cover");
+// svg.animate([
+//     //keyframes
+//     { transform: 'translateX(0px)' },
+//     { transform: 'translateX(-100%)' }
+// ], {
+//     //timing option
+//     duration: 1000,
+//     iterations: Infinity
+// });
 
 let coordonnees = [];
 let coordonneesperso = [];
