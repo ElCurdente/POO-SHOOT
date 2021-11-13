@@ -5,8 +5,7 @@ var bg_decallage = 0;
 function entierAlea(n) {
     return Math.floor(Math.random() * n);
 }
-svg.style("background-image", "url('Images/citybg.png')");
-svg.style("background-size", "cover");
+
 
 setInterval(function () {
     svg.style("background-position", bg_decallage + "px 0px");

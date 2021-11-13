@@ -17,16 +17,11 @@ let ennemis =[]; //ennemi
 let adv=[]; //attaque de l'ennemi
 // let mainlayer = svg.append("g")
 
-
-
 //Joueur au premier plan 
 svg.append("use")
     .attr("id","avatar")
     .attr("href", "#joueur")
     .style("z-index",2)
-
-
-
 
 
 function positionAvatar(e) {
@@ -53,7 +48,7 @@ rect.on("mousemove", function (e) {
 
 
 function tir_attaques (){
-    attaques.push( {x:joueur_x,y:joueur_y, vx:1, vy:1})
+    attaques.push( {x:joueur_x,y:joueur_y, vx:-1, vy:0})
     creation_attaques();
     }
 
@@ -79,7 +74,7 @@ function place_attaques() {
 
 function mouvement_attaques() {
     attaques.forEach(d=>{        
-        //chaque tit se déplace de sa vitesse en x
+        //chaque tire se déplace de sa vitesse en x
         d.x+=d.vx;
     })
 

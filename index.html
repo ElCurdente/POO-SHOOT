@@ -5,49 +5,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="style.css">
     <script src="d3.js"></script>
     <title>shoot em up</title>
 
 </head>
 
-<body style="background-color: black; color: #ffffff">
-    <h1>Merwan Jaudally & Jules Mesnil</h1>
-    <svg width="100vmin" height="75vmin" viewBox="0 0 100 100">
-        <defs>
-            <!-- zone de dÃ©finitions: ici rien n'est dessinÃ©, on dÃ©fini les formes Ã  utiliser plus tard-->
-            <image id="spirale" xlink:href="Images/Spaceship.png" x="-15" y="-15" height="30px" width="30px"
-                style="pointer-events: none;"></image>
-            <!-- <g id="spirale" transform="translate(0.000000,24.000000) scale(-0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M102 182 c-128 -3 -127 -21 1 -24 l92 -2 -90 -5 -90 -6 -6 -40 c-8
--48 -5 -55 27 -55 15 0 24 6 24 15 0 9 11 21 25 27 14 6 25 17 25 25 0 9 16
-13 55 13 52 0 55 1 55 24 0 14 -3 26 -7 28 -5 2 -54 2 -111 0z m-2 -62 c0 -5
--4 -10 -10 -10 -5 0 -10 5 -10 10 0 6 5 10 10 10 6 0 10 -4 10 -10z"/> -->
-            <!-- </g> -->
+<body>
+    <!-- Titre du jeu (auteurs) -->
 
-            <g id="tirjoueur">
-                <image xlink:href="Images/laser.png" width="5" height="5" x="-20" y="-5.5" />
-            </g>
-
-
-        </defs>
-        <rect id="rectanglejoueur" x="92" y="0" width="25" height="100" style="fill:transparent" />
-    </svg>
+    <header>
+        <h1> Shoot Them Up
+        </h1>
+        <h2>Par Merwan Jaudally & Jules Mesnil</h2>
+    </header>
 
 
 
+    <div id="jeu">
+        <!-- Zone de jeu  -->
+        <svg width="100vmin" height="75vmin" viewBox="0 0 100 100">
+
+            <!-- Terrain du joueur  -->
+            <rect x="92" y="0" width="5vmin" height="75vmin" fill="transparent" id="terrain" />
+
+            <!-- Vie du joueur -->
+            <!-- <image x="-30" y="5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="5"
+                height="10" transform="scale(0.68 0.7)" xlink:href="perso1.png" id="vie1" />
+
+            <image x="-20" y="5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="5"
+                height="10" transform="scale(0.68 0.7)" xlink:href="perso1.png" id="vie2" />
+
+            <image x="-10" y="5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="5"
+                height="10" transform="scale(0.68 0.7)" xlink:href="perso1.png" id="vie3" /> -->
+
+
+            <defs>
+                <!-- Joueur -->
+                <g id="joueur">
+                    <image xlink:href="/Images/Spaceship.png" width="25" height="25" x="-12" y="-13" />
+                    <circle r=.4 fill="black"></circle>
+                </g>
+
+                <!-- Attaque du joueur  -->
+                <g id="attaque">
+                    <image xlink:href="/Images/laser.png" width="10" height="10" x="-5" y="-5"
+                        transform="rotate(180)" />
+
+                    <circle cx="2" cy="2" r="0" fill="black"> </circle>
+                </g>
+
+                <!-- Ennemi  -->
+                <g id="ennemis">
+                    <image xlink:href="/Images/drd_strip6.png" width="10" height="10" x="-7.5" y="-4"
+                        transform="rotate(-90)" />
+
+                    <circle cx="2" cy="2" r="1" fill="black"> </circle>
+                </g>
+
+                <!-- Attaque de l'ennemi -->
+                <circle x="0" y="0" cx="0" cy="0" r="1" fill="yellow" id="adv"> </circle>
+            </defs>
+        </svg>
+
+    </div>
     <section style="display: inline-block;">
         <p style="display:inline-block; font-size: 2rem; color: #ffffff;">Nombre de vies : </p>
         <img src="Images/vie.png" class="vie1" alt="" style="width: 40px;">
         <img src="Images/vie.png" class="vie2" alt="" style="width: 40px;">
         <img src="Images/vie.png" class="vie3" alt="" style="width: 40px;">
     </section>
-    <!--
-Le script est appelé en dernier, il sera lancé uniquement lorsque le document sera prêt
-alternative: document.addEventListener("DOMContentLoaded", function() {/*...*/ });
--->
-    <script src="index.js" type="text/javascript"></script>
+
+    <script src="jeu.js" type="text/javascript"></script>
 </body>
 
 </html>

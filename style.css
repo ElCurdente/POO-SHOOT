@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    background-color: #000;
+}
+
+h1 {
+    font-size: 1.3rem;
+    font-family: 'Montserrat';
+    color: #fff;
+}
+
+h2 {
+    font-size: 1rem;
+    color: #fff;
+}
+
+header {
+    text-align: center;
+    padding: 5px;
+}
+
+svg {
+    background-image: url(/Images/citybg.png);
+    background-size: cover;
+    animation: animatedBackground 500s linear infinite;
+}
+
+@keyframes animatedBackground {
+    from {
+      background-position: 0 0;
+    }
+  /*use negative width if you want it to flow right to left else and positive for left to right*/
+    to {
+      background-position: -10000px 0;
+    }
+  }
+
+#jeu {
+    display: flex;
+    justify-content: center;
+}
+
+
+#joueur {
+    pointer-events: none;
+}
