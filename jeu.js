@@ -178,7 +178,7 @@ setInterval(function () {
 }, 20);
 
 setInterval(ennemiss, 1000);
-setInterval(mouvement_ennemis, 60);
+setInterval(mouvement_ennemis, 40);
 
 // function update_DOM() {
 
