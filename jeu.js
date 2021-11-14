@@ -19,6 +19,7 @@ let tirjoueur = []; //attaque du joueur
 let ennemis = []; //ennemi
 let coordonnees = [];
 let adv = []; //attaque de l'ennemi
+
 // let mainlayer = svg.append("g")
 
 
@@ -104,8 +105,9 @@ setInterval(mouvement_attaques, 15);
 // Ennemis
 // <---------------------------------------------------->
 
+//on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
-    ennemis.push({ x: -18, y: entierAlea(80), vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAleatoire(0,95), vx: 1, vy: 0 })
     creation_ennemis();
 }
 
@@ -259,8 +261,10 @@ setInterval(mouvement_ennemis, 40);
 
 ///////////////////////////////////////////////
 
-function entierAlea(n) {
-    return Math.floor(Math.random() * n);
+// Ici on veut que les ennemis apparaissent à partir de min et de max (interval fermé)
+function entierAleatoire(min, max)
+{
+ return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 

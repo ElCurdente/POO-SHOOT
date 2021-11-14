@@ -41,7 +41,8 @@ svg {
 }
 
 #espace_joueur {
-  opacity: .4;
+  fill: white;
+  opacity: .2;
 }
 
 
