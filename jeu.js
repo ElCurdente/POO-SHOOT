@@ -97,7 +97,7 @@ function mouvement_attaques() {
 }
 
 setInterval(tir_attaques, 1000);
-setInterval(mouvement_attaques, 20);
+setInterval(mouvement_attaques, 15);
 setInterval(console.log(score), 20);
 
 
@@ -106,7 +106,7 @@ setInterval(console.log(score), 20);
 // <---------------------------------------------------->
 
 function ennemiss() {
-    ennemis.push({ x: -15, y: entierAlea(50), vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAlea(50), vx: 1, vy: 0 })
     creation_ennemis();
 }
 
