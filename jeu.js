@@ -110,7 +110,7 @@ setInterval(console.log(score), 20);
 // <---------------------------------------------------->
 
 function ennemiss() {
-    ennemis.push({ x: 0, y: entierAlea(100), vx: 1, vy: 0 })
+    ennemis.push({ x: -15, y: entierAlea(50), vx: 1, vy: 0 })
     creation_ennemis();
 }
 
@@ -152,6 +152,7 @@ function mouvement_ennemis() {
         //chaque tire se déplace de sa vitesse en x
         d.x += d.vx;
     })
+    place_ennemis();
 }
 
 setInterval(function () {
@@ -177,7 +178,7 @@ setInterval(function () {
 }, 20);
 
 setInterval(ennemiss, 1000);
-setInterval(mouvement_ennemis, 500);
+setInterval(mouvement_ennemis, 60);
 
 // function update_DOM() {
 
