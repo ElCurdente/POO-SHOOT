@@ -106,7 +106,7 @@ setInterval(console.log(score), 20);
 // <---------------------------------------------------->
 
 function ennemiss() {
-    ennemis.push({ x: -18, y: entierAlea(50), vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAlea(98), vx: 1, vy: 0 })
     creation_ennemis();
 }
 
@@ -260,8 +260,9 @@ setInterval(mouvement_ennemis, 40);
 
 ///////////////////////////////////////////////
 
+// Ici on veut que les ennemis apparaissent à partir de 2 en Y jusqu'à n (98 en Y)
 function entierAlea(n) {
-    return Math.floor(Math.random() * n);
+    return Math.floor(Math.random() * n) + 2;
 }
 
 
