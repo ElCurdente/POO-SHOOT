@@ -96,7 +96,7 @@ function mouvement_attaques() {
     }
 }
 
-setInterval(tir_attaques, 1000);
+setInterval(tir_attaques, 900);
 setInterval(mouvement_attaques, 15);
 setInterval(console.log(score), 20);
 
