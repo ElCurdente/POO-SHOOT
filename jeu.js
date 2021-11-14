@@ -84,11 +84,11 @@ function mouvement_attaques() {
         //suppression de l'ennemi
         creation_attaques();
         creation_ennemis();
-// <---------------------------------------------------->
-// Score
-// <---------------------------------------------------->
+        // <---------------------------------------------------->
+        // Score
+        // <---------------------------------------------------->
         document.querySelector('#points').innerHTML = score;
-        score+= 150;
+        score += 150;
 
     } else {
         //uniquement les coordonnées des tirs ont été modifiées, on fait la mise à jour correspondante
@@ -98,7 +98,6 @@ function mouvement_attaques() {
 
 setInterval(tir_attaques, 900);
 setInterval(mouvement_attaques, 15);
-setInterval(console.log(score), 20);
 
 
 // <---------------------------------------------------->
@@ -106,7 +105,7 @@ setInterval(console.log(score), 20);
 // <---------------------------------------------------->
 
 function ennemiss() {
-    ennemis.push({ x: -18, y: entierAlea(50), vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAlea(80), vx: 1, vy: 0 })
     creation_ennemis();
 }
 
