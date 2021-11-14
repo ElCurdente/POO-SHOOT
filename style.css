@@ -1,43 +1,53 @@
+@font-face {
+  font-family: "upheavtt";
+  src: url("typo/upheavtt.woff2") format("woff2"),
+  url("typo/upheavtt.woff") format("woff");
+}
+
 body {
-    margin: 0;
-    background-color: #000;
+  margin: 0;
+  background-color: #000;
+  font-family: "upheavtt";
 }
 
 h1 {
-    font-size: 1.3rem;
-    font-family: 'Montserrat';
-    color: #fff;
+  font-size: 1.3rem;
+  color: #fff;
+  font-family: "upheavtt";
+  letter-spacing: 2px;
 }
 
 h2 {
-    font-size: 1rem;
-    color: #fff;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  color: #fff;
 }
 
 header {
-    text-align: center;
-    padding: 5px;
+  text-align: center;
+  padding: 5px;
 }
 
 svg {
-    background-image: url(Images/citybg.png);
-    background-size: cover;
-    animation: animatedBackground 500s linear infinite;
+  background-image: url(Images/citybg.png);
+  background-size: cover;
+  animation: animatedBackground 500s linear infinite;
 }
 
 @keyframes animatedBackground {
-    from {
-      background-position: 0 0;
-    }
-  /*use negative width if you want it to flow right to left else and positive for left to right*/
-    to {
-      background-position: 10000px 0;
-    }
+  from {
+    background-position: 0 0;
   }
 
+  /*use negative width if you want it to flow right to left else and positive for left to right*/
+  to {
+    background-position: 10000px 0;
+  }
+}
+
 #jeu {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #espace_joueur {
@@ -47,5 +57,27 @@ svg {
 
 
 #joueur {
-    pointer-events: none;
+  pointer-events: none;
+}
+
+.infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "upheavtt";
+  letter-spacing: 2px;
+}
+
+.infos p {
+  display: inline-block;
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+.infos img {
+  height: 30px;
+}
+
+.score {
+  padding-left: 50px;
 }
