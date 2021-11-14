@@ -20,7 +20,7 @@ header {
 }
 
 svg {
-    background-image: url(/Images/citybg.png);
+    background-image: url(Images/citybg.png);
     background-size: cover;
     animation: animatedBackground 500s linear infinite;
 }
@@ -31,7 +31,7 @@ svg {
     }
   /*use negative width if you want it to flow right to left else and positive for left to right*/
     to {
-      background-position: -10000px 0;
+      background-position: 10000px 0;
     }
   }
 
