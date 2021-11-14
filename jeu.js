@@ -12,7 +12,7 @@ let rect = d3.select("#espace_joueur"); // terrain du joueur
 // <!-- Déclaration de variables -->
 var joueur_x; // joueur_x est la position x du joueur
 var joueur_y; // joueur_y est la position y du joueur
-var score = 0;
+var score = 150;
 let compteur = 0;
 let compteurvies = 3;
 let tirjoueur = []; //attaque du joueur
@@ -42,14 +42,6 @@ rect.on("mousemove", function (e) {
     positionAvatar(e)
 })
 
-// <---------------------------------------------------->
-// Score
-// <---------------------------------------------------->
-
-function nbpoints() {
-    score++;
-    d3.select("#points").text(function (score) { return "Votre score: " + score; });
-}
 
 // <---------------------------------------------------->
 // Tir du joueur
@@ -89,10 +81,14 @@ function mouvement_attaques() {
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
         suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 7.2))) {  // test de collision entre le tir et l'ennemi
-        //suppresion de l'ennemi
+        //suppression de l'ennemi
         creation_attaques();
         creation_ennemis();
-        nbpoints(score);
+// <---------------------------------------------------->
+// Score
+// <---------------------------------------------------->
+        document.querySelector('#points').innerHTML = score;
+        score+= 150;
 
     } else {
         //uniquement les coordonnées des tirs ont été modifiées, on fait la mise à jour correspondante
