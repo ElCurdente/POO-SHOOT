@@ -6,7 +6,7 @@ let jeu = d3.select("#interface_jeu");
 
 // <!-- Varibles récupérés du code HTML -->
 var joueur = d3.select("#joueur")
-let rect = d3.select("#terrain"); // terrain du joueur
+let rect = d3.select("#espace_joueur"); // terrain du joueur
 
 
 // <!-- Déclaration de variables -->
@@ -42,15 +42,18 @@ rect.on("mousemove", function (e) {
     positionAvatar(e)
 })
 
-
-
-
 // <---------------------------------------------------->
+// Score
+// <---------------------------------------------------->
+
+function nbpoints() {
+    score++;
+    d3.select("#points").text(function (score) { return "Votre score: " + score; });
+}
+
 // <---------------------------------------------------->
 // Tir du joueur
 // <---------------------------------------------------->
-// <---------------------------------------------------->
-
 
 function tir_attaques() {
     tirjoueur.push({ x: joueur_x, y: joueur_y, vx: -1, vy: 0 })
@@ -85,19 +88,22 @@ function mouvement_attaques() {
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
-        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 5))) {  // test de collision entre le tir et l'ennemi
+        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 7.2))) {  // test de collision entre le tir et l'ennemi
         //suppresion de l'ennemi
         creation_attaques();
         creation_ennemis();
-        ajout_point();
+        nbpoints(score);
 
     } else {
-        //uniquement les coordonnées des oiseaux ont été modifiées, on fait la mise à jour correspondante
+        //uniquement les coordonnées des tirs ont été modifiées, on fait la mise à jour correspondante
         place_attaques();
     }
 }
+
 setInterval(tir_attaques, 1000);
 setInterval(mouvement_attaques, 20);
+setInterval(console.log(score), 20);
+
 
 // <---------------------------------------------------->
 // Ennemis
@@ -143,7 +149,7 @@ function place_ennemis() {
 
 function mouvement_ennemis() {
     ennemis.forEach(d => {
-        //chaque tit se déplace de sa vitesse en x
+        //chaque tire se déplace de sa vitesse en x
         d.x += d.vx;
     })
 }

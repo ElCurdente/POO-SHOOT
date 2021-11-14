@@ -40,6 +40,10 @@ svg {
     justify-content: center;
 }
 
+#espace_joueur {
+  opacity: .4;
+}
+
 
 #joueur {
     pointer-events: none;
