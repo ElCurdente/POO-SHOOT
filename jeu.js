@@ -51,7 +51,7 @@ rect.on("mousemove", function (e) {
 // <---------------------------------------------------->
 
 function tir_attaques() {
-    tirjoueur.push({ x: joueur_x-1, y: joueur_y-4.5, vx: -1, vy: 0 })
+    tirjoueur.push({ x: joueur_x - 1, y: joueur_y - 4.5, vx: -1, vy: 0 })
     creation_attaques();
 }
 
@@ -109,7 +109,7 @@ setInterval(mouvement_attaques, 15);
 
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
-    ennemis.push({ x: -18, y: entierAleatoire(0,95)-6, vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
     creation_ennemis();
 }
 
@@ -177,9 +177,8 @@ setInterval(mouvement_ennemis, 40);
 ///////////////////////////////////////////////
 
 // Ici on veut que les ennemis apparaissent à partir de min et de max (interval fermé)
-function entierAleatoire(min, max)
-{
- return Math.floor(Math.random() * (max - min + 1)) + min;
+function entierAleatoire(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -188,7 +187,7 @@ function angle(x, y) {
 }
 function distance(a, b) {
     let dx = a.x - b.x;
-    let dy = (a.y - b.y)*2;
+    let dy = (a.y - b.y) * 2;
     return Math.sqrt(dx * dx + dy * dy);
 }
 
@@ -210,9 +209,9 @@ function suppressionDansTableau(tableau, critere) {
 // Tir ennemis
 
 function tir_ennemis() {
-    ennemis.forEach(function (e){
-        tirennemi.push({ x: e.x-5, y: e.y-3.5, vx: 1, vy: 0 })
-    
+    ennemis.forEach(function (e) {
+        tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
+
     })
     creation_attaques_ennemis();
 }
@@ -256,8 +255,8 @@ function mouvement_attaques_ennemis() {
     }
 }
 
-setInterval(tir_ennemis, entierAleatoire(3000,4000));
-setInterval(mouvement_attaques_ennemis, entierAleatoire(28,32));
+setInterval(tir_ennemis, entierAleatoire(3000, 4000));
+setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
 
 
 
