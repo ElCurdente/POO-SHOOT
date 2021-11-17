@@ -81,7 +81,7 @@ function mouvement_attaques() {
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
-        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 7.2))) {  // test de collision entre le tir et l'ennemi
+        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 5))) {  // test de collision entre le tir et l'ennemi
         //suppression de l'ennemi
         creation_attaques();
         creation_ennemis();
