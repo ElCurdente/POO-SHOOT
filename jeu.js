@@ -99,7 +99,7 @@ function mouvement_attaques() {
     }
 }
 
-setInterval(tir_attaques, 900);
+setInterval(tir_attaques, 600);
 setInterval(mouvement_attaques, 15);
 
 
@@ -188,7 +188,7 @@ function angle(x, y) {
 }
 function distance(a, b) {
     let dx = a.x - b.x;
-    let dy = a.y - b.y;
+    let dy = (a.y - b.y)*2;
     return Math.sqrt(dx * dx + dy * dy);
 }
 
@@ -211,7 +211,7 @@ function suppressionDansTableau(tableau, critere) {
 
 function tir_ennemis() {
     ennemis.forEach(function (e){
-        tirennemi.push({ x: e.x, y: e.y, vx: 1, vy: 0 })
+        tirennemi.push({ x: e.x-5, y: e.y-3.5, vx: 1, vy: 0 })
     
     })
     creation_attaques_ennemis();
@@ -256,8 +256,8 @@ function mouvement_attaques_ennemis() {
     }
 }
 
-setInterval(tir_ennemis, entierAleatoire(2000,3000));
-setInterval(mouvement_attaques_ennemis, entierAleatoire(25,30));
+setInterval(tir_ennemis, entierAleatoire(3000,4000));
+setInterval(mouvement_attaques_ennemis, entierAleatoire(28,32));
 
 
 
