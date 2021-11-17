@@ -51,7 +51,7 @@ rect.on("mousemove", function (e) {
 // <---------------------------------------------------->
 
 function tir_attaques() {
-    tirjoueur.push({ x: joueur_x, y: joueur_y, vx: -1, vy: 0 })
+    tirjoueur.push({ x: joueur_x-1, y: joueur_y-4.5, vx: -1, vy: 0 })
     creation_attaques();
 }
 
@@ -109,7 +109,7 @@ setInterval(mouvement_attaques, 15);
 
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
-    ennemis.push({ x: -18, y: entierAleatoire(0,95), vx: 1, vy: 0 })
+    ennemis.push({ x: -18, y: entierAleatoire(0,95)-6, vx: 1, vy: 0 })
     creation_ennemis();
 }
 
