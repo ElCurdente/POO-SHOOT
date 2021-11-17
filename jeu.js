@@ -12,10 +12,11 @@ let rect = d3.select("#espace_joueur"); // terrain du joueur
 // <!-- Déclaration de variables -->
 var joueur_x; // joueur_x est la position x du joueur
 var joueur_y; // joueur_y est la position y du joueur
-var score = 150;
-let compteur = 0;
-let compteurvies = 3;
+var joueur = d3.select("#joueur"); // Joueur
+var score = 150; //compteur score
+let compteurvies = 3; //compteur vie
 let tirjoueur = []; //attaque du joueur
+let tirennemi = []; //attaque de l'ennemi
 let ennemis = []; //ennemi
 let coordonnees = [];
 let adv = []; //attaque de l'ennemi
@@ -40,7 +41,8 @@ function positionAvatar(e) {
 }
 
 rect.on("mousemove", function (e) {
-    positionAvatar(e)
+    positionAvatar(e);
+    joueur = [{ x: joueur_x, y: joueur_y }];
 })
 
 
@@ -81,7 +83,7 @@ function mouvement_attaques() {
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
-        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 7.2))) {  // test de collision entre le tir et l'ennemi
+        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 5))) {  // test de collision entre le tir et l'ennemi
         //suppression de l'ennemi
         creation_attaques();
         creation_ennemis();
@@ -127,12 +129,6 @@ function creation_ennemis() {
     place_ennemis();
 }
 
-// function update_coords() {
-//        svg
-//             .selectAll(".ennemi")
-//             .attr("x", d => d.x)
-//             .attr("y", d => d.y);
-//     }
 
 // test pour savoir si une goute a terminÃ© sa chute
 function chute_en_cours(d) {
@@ -155,7 +151,7 @@ function mouvement_ennemis() {
 setInterval(function () {
 
     if (ennemis.every(chute_en_cours))
-        update_coords();
+        console.log("ça marche");
     else {
         ennemis = ennemis.filter(chute_en_cours);
         compteurvies--;
@@ -176,87 +172,6 @@ setInterval(function () {
 
 setInterval(ennemiss, 1000);
 setInterval(mouvement_ennemis, 40);
-
-// function update_DOM() {
-
-//     let update =
-//         svg
-//             .selectAll("circle.actif")
-//             .data(coordonnees, d => d.id);
-
-//     update.exit()        //transition de sortie
-//         .attr("class", "inactif")
-//         .transition()
-//         .duration(2500)
-//         .style("fill", "white")
-//         .attr("r", 0)
-//         .remove();
-
-//     update.enter()
-//         .append("circle")
-//         .attr("class", "actif")
-//         .attr("r", 0)
-//         .style("fill", "black")
-//         .style("background-image", "url(/Images/drd.png")
-//         .transition()
-//         .duration(500)
-//         .attr("r", 2)
-//     update_coords();
-// }
-// function update_coords() {
-//     svg
-//         .selectAll("circle")
-//         .attr("cx", d => d.x)
-//         .attr("cy", d => d.y);
-// }
-// // test pour savoir si une goute a terminÃ© sa chute
-// function chute_en_cours(d) {
-//     return d.x < 90;
-// }
-
-
-// // initialement: update complÃ¨te
-// update_DOM();
-
-
-
-// //toutes les 20ms: les goutes tombent un peu
-// setInterval(function () {
-//     if (coordonnees.length == 0) return;
-//     coordonnees.forEach(function (d) {
-//         d.vitesse += 0; //la vitesse augmente (accÃ©lÃ©ration pendant la chute)
-//         d.x += d.vitesse / 50;  //y augmente en fonction de la vitesse 
-//     });
-
-//     if (coordonnees.every(chute_en_cours))
-//         update_coords();
-//     else {
-//         coordonnees = coordonnees.filter(chute_en_cours);
-//         update_DOM();
-//         compteurvies--;
-//     }
-
-//     if (compteurvies == 2) {
-//         d3.select(".vie3").remove();
-//     }
-//     else if (compteurvies == 1) {
-//         d3.select(".vie2").remove()
-//     }
-//     else if (compteurvies == 0) {
-//         compteurvies = -1;
-//         d3.select(".vie1").remove();
-//         setTimeout(() => { alert("Ton score est de : **** points    Recommence"); window.location.reload() }, 0);
-//     }
-// }, 20);
-
-
-// //toutes les 2sec: une nouvelle goutte est ajoutÃ©e à gauche
-// setInterval(function () {
-//     compteur++;
-//     coordonnees.push({ y: entierAlea(100), x: -15, vitesse: entierAlea(10) + 20, id: compteur });
-//     update_DOM();
-// }, 1500);
-
 
 
 ///////////////////////////////////////////////
@@ -289,5 +204,62 @@ function suppressionDansTableau(tableau, critere) {
     }
     return suppression;
 }
+
+
+
+// Tir ennemis
+
+function tir_ennemis() {
+    ennemis.forEach(function (e){
+        tirennemi.push({ x: e.x, y: e.y, vx: 1, vy: 0 })
+    
+    })
+    creation_attaques_ennemis();
+}
+
+function creation_attaques_ennemis() {
+    let lien = svg
+        .selectAll(".tirennemis")
+        .data(tirennemi);
+
+    lien.enter()
+        .append("use")
+        .attr("class", "tirennemis")
+        .attr("href", "#tir_ennemi");
+
+    lien.exit()
+        .remove();
+    place_attaques_ennemis();
+}
+
+function place_attaques_ennemis() {
+    svg.selectAll(".tirennemis")
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+}
+
+function mouvement_attaques_ennemis() {
+    tirennemi.forEach(d => {
+        //chaque tit se déplace de sa vitesse en x
+        d.x += d.vx;
+    })
+
+    //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
+    if (suppressionDansTableau(tirennemi, attaquemechante =>
+        suppressionDansTableau(joueur, mechant => distance(attaquemechante, mechant) < 7.2))) {  // test de collision entre le tir et l'ennemi
+        //suppression de l'ennemi
+        creation_attaques_ennemis();
+        compteurvies--;
+
+    } else {
+        //uniquement les coordonnées des tirs ont été modifiées, on fait la mise à jour correspondante
+        place_attaques_ennemis();
+    }
+}
+
+setInterval(tir_ennemis, entierAleatoire(2000,3000));
+setInterval(mouvement_attaques_ennemis, entierAleatoire(25,30));
+
+
+
 
 
