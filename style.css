@@ -86,15 +86,20 @@ svg {
 
 .pause {
   display: flex;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.pause h1 {
+.pause h1,
+h2 {
   color: #000;
 }
+
 
 .cookiesContent {
   width: 320px;
@@ -105,7 +110,7 @@ svg {
   color: #000;
   text-align: center;
   border-radius: 20px;
-  padding: 30px 30px 70px;
+  padding: 30px 30px 30px;
 }
 
 .cookiesContent button.accept {
