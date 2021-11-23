@@ -42,6 +42,8 @@ function positionAvatar(e) {
 }
 
 rect.on("mousemove", function (e) {
+    if (paused)
+        return;
     positionAvatar(e);
     joueur = [{ x: joueur_x, y: joueur_y }];
 })
