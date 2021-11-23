@@ -20,6 +20,7 @@ let tirennemi = []; //attaque de l'ennemi
 let ennemis = []; //ennemi
 let coordonnees = [];
 let adv = []; //attaque de l'ennemi
+var paused = 0;
 
 // let mainlayer = svg.append("g")
 
@@ -260,5 +261,24 @@ setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
 
 
 
+function togglePause()
+{
+    if (!paused)
+    {
+        paused = true;
+        console.log("true");
+    } else if (paused)
+    {
+        paused = false;
+        console.log("false");
+    }
 
+}
 
+window.addEventListener('keyup', function (e) {
+var key = e.keyCode;
+if (key === 32)// touche espace
+{
+    togglePause();
+}
+});
