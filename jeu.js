@@ -21,6 +21,8 @@ let ennemis = []; //ennemi
 let coordonnees = [];
 let adv = []; //attaque de l'ennemi
 var paused = false;
+var reprendre = document.getElementById('reprendre');
+var recommencer = document.getElementById('recommencer');
 
 // let mainlayer = svg.append("g")
 
@@ -52,9 +54,9 @@ rect.on("mousemove", function (e) {
 // <---------------------------------------------------->
 
 function tir_attaques() {
-    if (paused != true){
+    if (paused != true) {
         tirjoueur.push({ x: joueur_x - 1, y: joueur_y - 4.5, vx: -1, vy: 0 })
-        }
+    }
     creation_attaques();
 }
 
@@ -79,11 +81,12 @@ function place_attaques() {
 }
 
 function mouvement_attaques() {
-    if (paused != true){
-    tirjoueur.forEach(d => {
-        //chaque tit se déplace de sa vitesse en x
-        d.x += d.vx;
-    })}
+    if (paused != true) {
+        tirjoueur.forEach(d => {
+            //chaque tit se déplace de sa vitesse en x
+            d.x += d.vx;
+        })
+    }
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
@@ -113,10 +116,11 @@ setInterval(mouvement_attaques, 15);
 
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
-    if (paused != true){
-    ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
-    creation_ennemis();
-}}
+    if (paused != true) {
+        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
+        creation_ennemis();
+    }
+}
 
 function creation_ennemis() {
     let lien2 = svg
@@ -146,18 +150,19 @@ function place_ennemis() {
 }
 
 function mouvement_ennemis() {
-    if (paused != true){
-    ennemis.forEach(d => {
-        //chaque tire se déplace de sa vitesse en x
-        d.x += d.vx;
-    })}
+    if (paused != true) {
+        ennemis.forEach(d => {
+            //chaque tire se déplace de sa vitesse en x
+            d.x += d.vx;
+        })
+    }
     place_ennemis();
 }
 
 setInterval(function () {
 
     if (ennemis.every(chute_en_cours));
-   
+
     else {
         ennemis = ennemis.filter(chute_en_cours);
         compteurvies--;
@@ -216,14 +221,15 @@ function suppressionDansTableau(tableau, critere) {
 
 
 function tir_ennemis() {
-    if (paused != true){
-    ennemis.forEach(function (e) {
-        tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
+    if (paused != true) {
+        ennemis.forEach(function (e) {
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
 
-    })
-   
-    creation_attaques_ennemis();
-} }
+        })
+
+        creation_attaques_ennemis();
+    }
+}
 
 function creation_attaques_ennemis() {
     let lien = svg
@@ -246,11 +252,12 @@ function place_attaques_ennemis() {
 }
 
 function mouvement_attaques_ennemis() {
-    if (paused != true){
-    tirennemi.forEach(d => {
-        //chaque tit se déplace de sa vitesse en x
-        d.x += d.vx;
-    })}
+    if (paused != true) {
+        tirennemi.forEach(d => {
+            //chaque tit se déplace de sa vitesse en x
+            d.x += d.vx;
+        })
+    }
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirennemi, attaquemechante =>
@@ -270,16 +277,13 @@ setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
 
 
 
-function togglePause()
-{
-    if (!paused)
-    {
+function togglePause() {
+    if (!paused) {
         paused = true;
         d3.select('#pause').style('display', 'flex')
         d3.select('#bg').style('animation-play-state', 'paused')
         console.log("true"); //ça joue
-    } else if (paused)
-    {
+    } else if (paused) {
         paused = false;
         d3.select('#pause').style('display', 'none')
         d3.select('#bg').style('animation-play-state', 'running')
@@ -289,9 +293,17 @@ function togglePause()
 }
 
 window.addEventListener('keyup', function (e) {
-var key = e.keyCode;
-if (key === 32)// touche espace
-{
-    togglePause();
-}
+    var key = e.keyCode;
+    if (key === 32)// touche espace
+    {
+        togglePause();
+    }
 });
+
+function btn_reprendre() {
+    reprendre.addEventListener("click", togglePause());
+}
+
+function reload() {
+    recommencer.addEventListener("click", window.location.reload(false));
+}
