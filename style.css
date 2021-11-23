@@ -97,8 +97,21 @@ svg {
 }
 
 .pause h1,
-.pause h2 {
+.pause h2,
+.fin h1,
+.fin h2 {
   color: #000;
+}
+
+.fin {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 

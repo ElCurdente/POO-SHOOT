@@ -179,7 +179,7 @@ setInterval(function () {
     else if (compteurvies == 0) {
         compteurvies = -1;
         d3.select(".vie1").remove();
-        setTimeout(() => { alert("Ton score est de : **** points    Recommence"); window.location.reload() }, 0);
+        setTimeout(() => { d3.select('#fin').style('display', 'flex'); paused = true; d3.select('#bg').style('animation-play-state', 'paused'); }, 0);
     }
 }, 20);
 
@@ -308,4 +308,13 @@ function btn_reprendre() {
 
 function reload() {
     recommencer.addEventListener("click", window.location.reload(false));
+}
+
+
+function fin() {
+    if (compteurvies == 0) {
+        d3.select('#fin').style('display', 'flex');
+    } else {
+        d3.select('#fin').style('display', 'none');
+    }
 }
