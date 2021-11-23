@@ -210,9 +210,15 @@ function suppressionDansTableau(tableau, critere) {
 // Tir ennemis
 
 function tir_ennemis() {
+<<<<<<< Updated upstream
     ennemis.forEach(function (e) {
         tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
 
+=======
+    ennemis.forEach(function (e){
+        tirennemi.push({ x: e.x-2, y: e.y-3.5, vx: 1, vy: 0 })
+    
+>>>>>>> Stashed changes
     })
     creation_attaques_ennemis();
 }
