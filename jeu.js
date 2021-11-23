@@ -84,7 +84,7 @@ function mouvement_attaques() {
 
     //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
     if (suppressionDansTableau(tirjoueur, attaque =>
-        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 5))) {  // test de collision entre le tir et l'ennemi
+        suppressionDansTableau(ennemis, ennemi => distance(attaque, ennemi) < 6))) {  // test de collision entre le tir et l'ennemi
         //suppression de l'ennemi
         creation_attaques();
         creation_ennemis();
@@ -210,13 +210,11 @@ function suppressionDansTableau(tableau, critere) {
 // Tir ennemis
 
 function tir_ennemis() {
-    if (paused != false) {
-        ennemis.forEach(function (e) {
-            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
+    ennemis.forEach(function (e) {
+        tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
 
-        })
-        creation_attaques_ennemis();
-    }
+    })
+    creation_attaques_ennemis();
 }
 
 function creation_attaques_ennemis() {
@@ -263,17 +261,16 @@ setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
 
 
 
-
 function togglePause()
 {
     if (!paused)
     {
         paused = true;
-        console.log("ça joue"); //Play
+        console.log("true");
     } else if (paused)
     {
         paused = false;
-        console.log("pause"); //Pause
+        console.log("false");
     }
 
 }
