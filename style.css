@@ -33,6 +33,7 @@ svg {
   background-image: url(Images/citybg.png);
   background-size: cover;
   animation: animatedBackground 500s linear infinite;
+  animation-play-state: running;
 }
 
 @keyframes animatedBackground {
@@ -85,7 +86,7 @@ svg {
 
 
 .pause {
-  display: flex;
+  display: none;
   position: fixed;
   top: 0;
   left: 50%;
