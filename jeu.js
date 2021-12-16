@@ -50,6 +50,10 @@ rect.on("mousemove", function (e) {
     joueur = [{ x: joueur_x, y: joueur_y }];
 })
 
+function espace() {
+    d3.select(".espace").style("display", "none");
+}
+setTimeout(espace, 5000);
 
 // <---------------------------------------------------->
 // Tir du joueur
@@ -99,7 +103,10 @@ function mouvement_attaques() {
         // <---------------------------------------------------->
         // Score
         // <---------------------------------------------------->
-        document.querySelector('#points').innerHTML = score;
+        document.querySelectorAll('#points').forEach(e => {
+           e.innerHTML = score;
+         
+        })
         score += 150;
 
     } else {
@@ -118,8 +125,11 @@ setInterval(mouvement_attaques, 15);
 
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
-    if (paused != true) {
+    if (paused != true && score <= 1500) {
         ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
+        creation_ennemis();
+    } else if (paused != true && score >= 1500) {
+        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.3, vy: 0 })
         creation_ennemis();
     }
 }
@@ -140,8 +150,6 @@ function creation_ennemis() {
     place_ennemis();
 }
 
-
-// test pour savoir si une goute a terminÃ© sa chute
 function chute_en_cours(d) {
     return d.x < 90;
 }
@@ -186,7 +194,6 @@ setInterval(function () {
 setInterval(ennemiss, 1000);
 setInterval(mouvement_ennemis, 40);
 
-
 ///////////////////////////////////////////////
 
 // Ici on veut que les ennemis apparaissent à partir de min et de max (interval fermé)
@@ -223,14 +230,17 @@ function suppressionDansTableau(tableau, critere) {
 
 
 function tir_ennemis() {
-    if (paused != true) {
+    if (paused != true && score <= 1500) {
         ennemis.forEach(function (e) {
             tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
-
         })
-
         creation_attaques_ennemis();
-    }
+    } else if (paused != true && score >= 1500) {
+        ennemis.forEach(function (e) {
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.3, vy: 0 })
+        })
+        creation_attaques_ennemis();
+    } 
 }
 
 function creation_attaques_ennemis() {
@@ -282,14 +292,12 @@ setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
 function togglePause() {
     if (!paused) {
         paused = true;
-        d3.select('#pause').style('display', 'flex')
-        d3.select('#bg').style('animation-play-state', 'paused')
-        console.log("true"); //ça joue
+        d3.select('#pause').style('display', 'flex');
+        d3.select('#bg').style('animation-play-state', 'paused');
     } else if (paused) {
         paused = false;
-        d3.select('#pause').style('display', 'none')
-        d3.select('#bg').style('animation-play-state', 'running')
-        console.log("false"); //pause
+        d3.select('#pause').style('display', 'none');
+        d3.select('#bg').style('animation-play-state', 'running');
     }
 
 }
