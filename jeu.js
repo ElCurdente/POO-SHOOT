@@ -115,20 +115,30 @@ function mouvement_attaques() {
     }
 }
 
+var init_tir;
+var vit_joueur = 400;
+
+function oui(freq) {
+    vit_joueur = freq;
+    init_tir = setInterval(tir_attaques, freq);
+}
+oui(400)
+
 function ModifInterval() {
-    clearInterval(attaqueJoueur);
-    clearInterval(mouvementAttaqueJoueur);
+    clearInterval(init_tir);
 }
 
-if (paused != true && score <= 300) {
-    var attaqueJoueur = setInterval(tir_attaques, 400);
-    var mouvementAttaqueJoueur = setInterval(mouvement_attaques, 15);
-    
-} else if (paused != true && score >= 300) {
-    ModifInterval();
-     attaqueJoueur = setInterval(tir_attaques, 200);
-     mouvementAttaqueJoueur = setInterval(mouvement_attaques, 5);
-}
+setInterval(mouvement_attaques, 15);
+
+// if (paused != true && score <= 300) {
+//     var attaqueJoueur = setInterval(tir_attaques, 400);
+//     var mouvementAttaqueJoueur = 
+
+// } else if (paused != true && score >= 300) {
+//     ModifInterval();
+//      attaqueJoueur = setInterval(tir_attaques, 200);
+//     //  mouvementAttaqueJoueur = setInterval(mouvement_attaques, 5);
+// }
 
 
 
@@ -139,13 +149,13 @@ if (paused != true && score <= 300) {
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
     if (paused != true && score <= 1500) {
-        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1, vy: 0 })
         creation_ennemis();
     } else if (paused != true && score >= 1500 && score <= 3000) {
-        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.25, vy: 0 })
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1.25, vy: 0 })
         creation_ennemis();
     } else if (paused != true && score >= 3000) {
-        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.5, vy: 0 })
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1.5, vy: 0 })
         creation_ennemis();
     }
 }
@@ -205,6 +215,12 @@ setInterval(function () {
         d3.select(".vie1").remove();
         setTimeout(() => { d3.select('#fin').style('display', 'flex'); paused = true; d3.select('#bg').style('animation-play-state', 'paused'); }, 0);
     }
+
+    if (score >= 3000 && vit_joueur == 400) {
+        ModifInterval();
+        oui(250);
+    }
+
 }, 20);
 
 setInterval(ennemiss, 1000);
