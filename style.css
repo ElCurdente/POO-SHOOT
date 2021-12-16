@@ -138,6 +138,7 @@ svg {
   font-size: 16px;
   color: white;
   box-shadow: 0px 6px 18px -5px #ed6755;
+  cursor: pointer;
 }
 
 .espace {

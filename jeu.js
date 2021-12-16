@@ -10,8 +10,8 @@ let rect = d3.select("#espace_joueur"); // terrain du joueur
 
 
 // <!-- Déclaration de variables -->
-var joueur_x; // joueur_x est la position x du joueur
-var joueur_y; // joueur_y est la position y du joueur
+var joueur_x = 0; // joueur_x est la position x du joueur
+var joueur_y = 0; // joueur_y est la position y du joueur
 var joueur = d3.select("#joueur"); // Joueur
 var score = 150; //compteur score
 let compteurvies = 3; //compteur vie
@@ -38,7 +38,7 @@ function positionAvatar(e) {
     let pointer = d3.pointer(e);
     d3.select("#avatar")
         .attr("x", pointer[0])
-        .attr("y", pointer[1])
+        .attr("y", pointer[1] + 4)
     joueur_x = pointer[0]
     joueur_y = pointer[1]
 }
@@ -104,8 +104,8 @@ function mouvement_attaques() {
         // Score
         // <---------------------------------------------------->
         document.querySelectorAll('#points').forEach(e => {
-           e.innerHTML = score;
-         
+            e.innerHTML = score;
+
         })
         score += 150;
 
@@ -115,8 +115,21 @@ function mouvement_attaques() {
     }
 }
 
-setInterval(tir_attaques, 400);
-setInterval(mouvement_attaques, 15);
+function ModifInterval() {
+    clearInterval(attaqueJoueur);
+    clearInterval(mouvementAttaqueJoueur);
+}
+
+if (paused != true && score <= 300) {
+    var attaqueJoueur = setInterval(tir_attaques, 400);
+    var mouvementAttaqueJoueur = setInterval(mouvement_attaques, 15);
+    
+} else if (paused != true && score >= 300) {
+    ModifInterval();
+     attaqueJoueur = setInterval(tir_attaques, 200);
+     mouvementAttaqueJoueur = setInterval(mouvement_attaques, 5);
+}
+
 
 
 // <---------------------------------------------------->
@@ -128,8 +141,11 @@ function ennemiss() {
     if (paused != true && score <= 1500) {
         ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1, vy: 0 })
         creation_ennemis();
-    } else if (paused != true && score >= 1500) {
-        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.3, vy: 0 })
+    } else if (paused != true && score >= 1500 && score <= 3000) {
+        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.25, vy: 0 })
+        creation_ennemis();
+    } else if (paused != true && score >= 3000) {
+        ennemis.push({ x: -18, y: entierAleatoire(0, 95) - 6, vx: 1.5, vy: 0 })
         creation_ennemis();
     }
 }
@@ -235,12 +251,18 @@ function tir_ennemis() {
             tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
         })
         creation_attaques_ennemis();
-    } else if (paused != true && score >= 1500) {
+    } else if (paused != true && score >= 1500 && score <= 3000) {
         ennemis.forEach(function (e) {
-            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.3, vy: 0 })
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.25, vy: 0 })
         })
         creation_attaques_ennemis();
-    } 
+    }
+    else if (paused != true && score >= 3000) {
+        ennemis.forEach(function (e) {
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.5, vy: 0 })
+        })
+        creation_attaques_ennemis();
+    }
 }
 
 function creation_attaques_ennemis() {
