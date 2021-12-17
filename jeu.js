@@ -118,29 +118,17 @@ function mouvement_attaques() {
 var init_tir;
 var vit_joueur = 400;
 
-function oui(freq) {
+function vague_tir(freq) {
     vit_joueur = freq;
     init_tir = setInterval(tir_attaques, freq);
 }
-oui(400)
+vague_tir(400)
 
 function ModifInterval() {
     clearInterval(init_tir);
 }
 
 setInterval(mouvement_attaques, 15);
-
-// if (paused != true && score <= 300) {
-//     var attaqueJoueur = setInterval(tir_attaques, 400);
-//     var mouvementAttaqueJoueur = 
-
-// } else if (paused != true && score >= 300) {
-//     ModifInterval();
-//      attaqueJoueur = setInterval(tir_attaques, 200);
-//     //  mouvementAttaqueJoueur = setInterval(mouvement_attaques, 5);
-// }
-
-
 
 // <---------------------------------------------------->
 // Ennemis
@@ -149,13 +137,13 @@ setInterval(mouvement_attaques, 15);
 //on veut qu'ils spawn en x-18 et entre 0 et 95 en y et se déplacent sur x de 1 et sur y de 0
 function ennemiss() {
     if (paused != true && score <= 1500) {
-        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1, vy: 0 })
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 0.45, vy: 0 })
         creation_ennemis();
-    } else if (paused != true && score >= 1500 && score <= 3000) {
-        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1.25, vy: 0 })
+    } else if (paused != true && score >= 1500 && score <= 4000) {
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 0.55, vy: 0 })
         creation_ennemis();
-    } else if (paused != true && score >= 3000) {
-        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 1.5, vy: 0 })
+    } else if (paused != true && score >= 4000) {
+        ennemis.push({ x: -18, y: entierAleatoire(5, 95), vx: 0.63, vy: 0 })
         creation_ennemis();
     }
 }
@@ -216,15 +204,38 @@ setInterval(function () {
         setTimeout(() => { d3.select('#fin').style('display', 'flex'); paused = true; d3.select('#bg').style('animation-play-state', 'paused'); }, 0);
     }
 
-    if (score >= 3000 && vit_joueur == 400) {
+    //vague tir joueur
+    if (score >= 1500 && score <= 4000 && vit_joueur == 400) {
         ModifInterval();
-        oui(250);
+        vague_tir(250);
+    }
+
+    if (score >= 4000 && vit_joueur == 400) {
+        ModifInterval();
+        vague_tir(10);
+    }
+
+    //vague ennemis
+    if (score >= 4000 && vit_enn == 1000) {
+        ModifInterval2();
+        vague_enn(600);
     }
 
 }, 20);
 
-setInterval(ennemiss, 1000);
-setInterval(mouvement_ennemis, 40);
+var init_enn;
+var vit_enn = 1000;
+
+function vague_enn(freq2) {
+    vit_enn = freq2;
+    init_enn = setInterval(ennemiss, freq2);
+}
+vague_enn(1000)
+
+function ModifInterval2() {
+    clearInterval(init_enn);
+}
+setInterval(mouvement_ennemis, 15);
 
 ///////////////////////////////////////////////
 
@@ -264,18 +275,18 @@ function suppressionDansTableau(tableau, critere) {
 function tir_ennemis() {
     if (paused != true && score <= 1500) {
         ennemis.forEach(function (e) {
-            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1, vy: 0 })
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 0.8, vy: 0 })
         })
         creation_attaques_ennemis();
-    } else if (paused != true && score >= 1500 && score <= 3000) {
+    } else if (paused != true && score >= 1500 && score <= 4000) {
         ennemis.forEach(function (e) {
-            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.25, vy: 0 })
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.05, vy: 0 })
         })
         creation_attaques_ennemis();
     }
-    else if (paused != true && score >= 3000) {
+    else if (paused != true && score >= 4000) {
         ennemis.forEach(function (e) {
-            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.5, vy: 0 })
+            tirennemi.push({ x: e.x - 5, y: e.y - 3.5, vx: 1.25, vy: 0 })
         })
         creation_attaques_ennemis();
     }
@@ -323,7 +334,7 @@ function mouvement_attaques_ennemis() {
 }
 
 setInterval(tir_ennemis, entierAleatoire(3000, 4000));
-setInterval(mouvement_attaques_ennemis, entierAleatoire(28, 32));
+setInterval(mouvement_attaques_ennemis, entierAleatoire(15, 20));
 
 
 
