@@ -23,6 +23,10 @@ let adv = []; //attaque de l'ennemi
 var paused = false;
 var reprendre = document.getElementById('reprendre');
 var recommencer = document.getElementById('recommencer');
+var init_tir;
+var vit_joueur = 400;
+var init_enn;
+var vit_enn = 1000;
 
 // let mainlayer = svg.append("g")
 
@@ -34,6 +38,7 @@ svg.append("use")
     .attr("href", "#joueur")
     .style("z-index", 2)
 
+//Position du joueur
 function positionAvatar(e) {
     let pointer = d3.pointer(e);
     d3.select("#avatar")
@@ -43,6 +48,7 @@ function positionAvatar(e) {
     joueur_y = pointer[1]
 }
 
+//Zone du joueur
 rect.on("mousemove", function (e) {
     if (paused)
         return;
@@ -50,6 +56,7 @@ rect.on("mousemove", function (e) {
     joueur = [{ x: joueur_x, y: joueur_y }];
 })
 
+//Texte qui clignotte pendant les 5 premières secondes du jeu
 function espace() {
     d3.select(".espace").style("display", "none");
 }
@@ -115,9 +122,7 @@ function mouvement_attaques() {
     }
 }
 
-var init_tir;
-var vit_joueur = 400;
-
+// Modifier le setInterval pour augmenter la cadence de tir
 function vague_tir(freq) {
     vit_joueur = freq;
     init_tir = setInterval(tir_attaques, freq);
@@ -223,9 +228,7 @@ setInterval(function () {
 
 }, 20);
 
-var init_enn;
-var vit_enn = 1000;
-
+//Modifier le setInterval pour augmenter la fréquence d'apparition des ennemis
 function vague_enn(freq2) {
     vit_enn = freq2;
     init_enn = setInterval(ennemiss, freq2);
@@ -319,10 +322,10 @@ function mouvement_attaques_ennemis() {
         })
     }
 
-    //fonction qui retirent les ennemis lorsque les tirs du joueur les touchent
+    //fonction qui retirent les attaques ennemis lorsqu'ils touchent le joueur
     if (suppressionDansTableau(tirennemi, attaquemechante =>
         suppressionDansTableau(joueur, mechant => distance(attaquemechante, mechant) < 7.2))) {  // test de collision entre le tir et l'ennemi
-        //suppression de l'ennemi
+        //suppression de l'attaque ennemi
         creation_attaques_ennemis();
         compteurvies--;
 
@@ -336,7 +339,7 @@ setInterval(tir_ennemis, entierAleatoire(3000, 4000));
 setInterval(mouvement_attaques_ennemis, entierAleatoire(15, 20));
 
 
-
+//pour mettre pause
 function togglePause() {
     if (!paused) {
         paused = true;
@@ -358,10 +361,13 @@ window.addEventListener('keyup', function (e) {
     }
 });
 
+
+//reprendre
 function btn_reprendre() {
     reprendre.addEventListener("click", togglePause());
 }
 
+//recommencer
 function reload() {
     recommencer.addEventListener("click", window.location.reload(false));
 }
